@@ -8,9 +8,8 @@
     "skipLibCheck": true,
     "baseUrl": "./src",
     "paths": {
-      "*": ["*", "controllers/*"]
+      "*": ["*", "/controllers/*"]
     }
     // Other options...
   }
 }
-

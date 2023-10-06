@@ -1,5 +1,6 @@
 //import { Request, Response, NextFunction } from 'express';
 import { PrismaClient } from '@prisma/client';
+import {Router, Request,Response ,NextFunction} from 'express';
 
 const prisma = new PrismaClient();
 
@@ -14,9 +15,4 @@ export const createUser = async (req: Request, res: Response) => {
 };
 
 
-import {Router, Request,Response ,NextFunction} from 'express';
-// import { createUser } from 'service/userService';
 
-// const router = Router();
-
-// router.get('/user', createUser);

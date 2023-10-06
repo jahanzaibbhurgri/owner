@@ -3,7 +3,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { PrismaClient } from '@prisma/client';
 import { createUser } from 'controllers/userController';
-import { createProduct } from 'controllers/productController';
+
 
 
 
@@ -15,7 +15,7 @@ const app = express();
 app.use(bodyParser.json());
 
 // User routes
-app.post('/users/', createUser);
+app.post('/users', createUser);
 
 /*
 app.get('/users', getAllUsers);
