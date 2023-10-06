@@ -1,0 +1,27 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Use the DATABASE_URL environment variable directly
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+model User {
+  id       Int       @id @default(autoincrement())
+  username String    @unique
+  email    String    @unique
+  name     String?
+  products Product[]
+}
+
+model Product {
+  id        Int      @id @default(autoincrement())
+  name      String
+  description String?
+  price     Float
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+}
