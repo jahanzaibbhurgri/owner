@@ -2,14 +2,16 @@
   "compilerOptions": {
     "target": "es2016",
     "module": "commonjs",
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
     "baseUrl": "./src",
     "paths": {
-      "*": ["*", "/controllers/*"]
-    }
+      "*": ["*", "controllers/*"] // Provide the correct relative path
+    },
     // Other options...
   }
 }

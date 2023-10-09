@@ -1,27 +1,30 @@
 // Import necessary modules and types
 
-import { createUser } from 'controllers/userController';
 import express, { Express, Request, Response } from 'express';
-import {Router} from 'express';
-import router from './routers/user.route';
+import swaggerUI from 'swagger-ui-express';
+import swaggerSpec from './swagger';
+import createUserRoute from './routers/user.route'; // Use a different name like userRouter
+import { getAllUsers } from './controllers/userController';
+
+
+
 
 
 // Create an instance of Express
 const app: Express = express();
 const port: number = 3000;
 
-// Define a route
-app.get('/', (req: Request, res: Response) => {
-  res.send('Api is running');
-});
 
-//use the userRoute for user-related routes
-app.use('/user',router);
+
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+
+app.use('/route', createUserRoute() ); 
+
 
 
 // Start the Express server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
-});
+}); 
 
 
