@@ -1,0 +1,135 @@
+openapi: 3.0.0
+info:
+  title: Code Improve API
+  description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
+  version: 1.0.0 
+  
+
+servers:
+  - url: http://localhost:3000
+
+paths:
+  /createUser:
+    post:
+      summary: Create the user
+      description: Create a new user in the system.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: The username of the user.
+                email:
+                  type: string
+                  description: The email of the user.
+              required:
+                - username
+                - email
+      responses:
+        201:
+          description: User created successfully.
+        400:
+          description: Invalid request data.
+        500:
+          description: An error occurred while creating the user.
+
+  /getallUsers:
+    get:
+      summary: Get a list of all users.
+      description: Retrieve a list of all users in the system.
+      responses:
+        200:
+          description: A list of users.
+        500:
+          description: An error occurred while fetching users.
+
+  /getUserById/{userId}:
+    get:
+      summary: Get the user by ID
+      description: Retrieve the user by ID.
+      parameters:
+        - name: userId
+          in: path
+          description: The ID of the user to retrieve.
+          required: true
+          schema:
+            type: number
+       
+      responses:
+        200:
+          description: User retrieved successfully.
+        400:
+          description: Invalid request data.
+        404:
+          description: User not found.
+        500:
+          description: An error occurred while getting the user by ID.
+  /updateUserById/{id}:
+    put:
+      summary: Update the user by ID
+      description: Update the user by ID.
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the user to update.
+          required: true
+          schema:
+            type: number
+        - name: user
+          in: body
+          description: User data to update.
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                    description: The user's ID (should match the one in the path).
+                  username:
+                    type: string
+                    description: The new username of the user.
+                  email:
+                    type: string
+                    description: The new email of the user.
+                required:
+                  - id
+                  - username
+                  - email
+      responses:
+        200:
+          description: User updated successfully.
+        400:
+          description: Invalid request data.
+        404:
+          description: User not found.
+        500:
+          description: An error occurred while updating the user.
+
+  /deleteUserById/{id}:
+      delete:
+        summary: Delete the user by ID
+        description: Delete the user by ID.
+        parameters:
+          - name: id
+            in: path
+            description: The ID of the user to delete.
+            required: true
+            schema:
+              type: number
+        responses:
+          204:
+            description: User deleted successfully.
+          404:
+            description: User not found.
+          500:
+            description: An error occurred while deleting the user.
+        
+            
+
+        
