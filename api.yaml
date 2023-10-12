@@ -13,6 +13,8 @@ paths:
     post:
       summary: Create the user
       description: Create a new user in the system.
+      tags:
+       - UserController
       requestBody:
         required: true
         content:
@@ -41,6 +43,8 @@ paths:
     get:
       summary: Get a list of all users.
       description: Retrieve a list of all users in the system.
+      tags:
+        - UserController
       responses:
         200:
           description: A list of users.
@@ -51,6 +55,8 @@ paths:
     get:
       summary: Get the user by ID
       description: Retrieve the user by ID.
+      tags:
+        - "UserController"
       parameters:
         - name: userId
           in: path
@@ -68,10 +74,14 @@ paths:
           description: User not found.
         500:
           description: An error occurred while getting the user by ID.
+  
   /updateUserById/{id}:
     put:
       summary: Update the user by ID
       description: Update the user by ID.
+      tags:
+        - "UserController"
+      
       parameters:
         - name: id
           in: path
@@ -113,23 +123,25 @@ paths:
 
   /deleteUserById/{id}:
       delete:
-        summary: Delete the user by ID
-        description: Delete the user by ID.
-        parameters:
-          - name: id
-            in: path
-            description: The ID of the user to delete.
-            required: true
-            schema:
-              type: number
-        responses:
-          204:
-            description: User deleted successfully.
-          404:
-            description: User not found.
-          500:
-            description: An error occurred while deleting the user.
-        
+          summary: Delete the user by ID
+          description: Delete the user by ID.
+          tags:
+            - "UserController"
+          parameters:
+            - name: id
+              in: path
+              description: The ID of the user to delete.
+              required: true
+              schema:
+                type: number
+          responses:
+            204:
+              description: User deleted successfully.
+            404:
+              description: User not found.
+            500:
+              description: An error occurred while deleting the user.
+          
             
 
         
