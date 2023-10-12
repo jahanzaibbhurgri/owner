@@ -10,8 +10,9 @@
     "skipLibCheck": true,
     "baseUrl": "./src",
     "paths": {
-      "*": ["*", "controllers/*"] // Provide the correct relative path
-    },
+      "@models/*": ["models/*"],
+      "@controllers/*": ["controllers/*"]
+    }
     // Other options...
   }
 }

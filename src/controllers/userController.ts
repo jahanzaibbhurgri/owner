@@ -1,51 +1,28 @@
-/*
-import { PrismaClient } from '@prisma/client';
-import {Router, Request,Response ,NextFunction} from 'express';
-
-const prisma = new PrismaClient();
-
-
-export const createUser = async (req: Request, res: Response) => {
-  try {
-    const user = await prisma.user.create({ data: req.body });
-    res.json(user);
-  } catch (error) {
-    res.status(500).json({ error: 'Error creating user' });
-  }
-};
-*/
-
-import { PrismaClient } from '@prisma/client';
 import { Request, Response } from 'express';
-import { Router } from 'express';
-
-
-const router = Router();
-
-const prisma = new PrismaClient();
-
-
+import * as userService from '../service/userService'
 
 
 
 // Create a new user
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const user = await prisma.user.create({ data: req.body });
-    res.status(201).json(user); // 201 Created status for successful creation
+    const newUser = await userService.createUser(req.body);
+    res.status(201).json(newUser);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error creating user' });
   }
 };
 
-
-
 // Get all users
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
-    const users = await prisma.user.findMany();
-    res.json(users);
+    const users = await userService.getAllUsers();
+    if (!users) {
+      return res.status(404).json({ error: 'No users found' });
+    }
+    res.status(201).json(users);
+    
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error retrieving users' });
@@ -54,40 +31,30 @@ export const getAllUsers = async (req: Request, res: Response) => {
 
 // Get user by ID
 export const getUserById = async (req: Request, res: Response) => {
-  const userId = parseInt(req.params.userId);
-  if (isNaN(userId)) {
-    res.status(400).json({ error: 'Invalid user ID' });
-    return;
-  }
-
   try {
-    const user = await prisma.user.findUnique({
-      where: { id: userId },
-    });
+    // Parse the 'id' parameter as an integer
+    const userId = parseInt(req.params.id, 10);
+    const user = await userService.getUserById(userId);
     if (!user) {
       res.status(404).json({ error: 'User not found' });
-      return;
+    } else {
+      res.status(200).json(user); 
     }
-    res.json(user);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error retrieving user' });
   }
 };
 
+
+
+
 // Update user by ID
 export const updateUser = async (req: Request, res: Response) => {
-  const userId = parseInt(req.params.userId);
-  if (isNaN(userId)) {
-    res.status(400).json({ error: 'Invalid user ID' });
-    return;
-  }
-
   try {
-    const updatedUser = await prisma.user.update({
-      where: { id: userId },
-      data: req.body,
-    });
+    const userId = parseInt(req.params.id, 10); // Use 'userId' to match your Swagger configuration
+    const userData = req.body;
+    const updatedUser = await userService.updateUser(userId, userData);
     res.json(updatedUser);
   } catch (error) {
     console.error(error);
@@ -97,22 +64,13 @@ export const updateUser = async (req: Request, res: Response) => {
 
 // Delete user by ID
 export const deleteUser = async (req: Request, res: Response) => {
-  const userId = parseInt(req.params.userId);
-  if (isNaN(userId)) {
-    res.status(400).json({ error: 'Invalid user ID' });
-    return;
-  }
-
   try {
-    await prisma.user.delete({
-      where: { id: userId },
-    });
-    res.status(204).send(); // 204 No Content status for successful deletion
+    const userId = parseInt(req.params.id, 10);
+    await userService.deleteUser(userId);
+    res.json({ message: 'User deleted successfully' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error deleting user' });
   }
 };
-
-
 
