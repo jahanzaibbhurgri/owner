@@ -11,7 +11,6 @@ export const createUserValidationRules = (req: Request, res: Response, next: Nex
     next();
   };
 
-
   export const validateUserId = (req: Request, res: Response, next: NextFunction) => {
     const userId = parseInt(req.params.id, 10);
   

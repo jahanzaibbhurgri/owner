@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "build":"ts",
     "start": "ts-node src/server.ts"
   },
   "keywords": [],
