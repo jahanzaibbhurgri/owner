@@ -7,7 +7,7 @@ pool:
 steps:
 - task: UseNode@1
   inputs:
-    version: '10.x'
+    version: '16.x'
     checkLatest: true
 
 - script: |
