@@ -12,10 +12,10 @@ steps:
 
 - script: |
     npm install
-    npm run build
+    npm run custom-build   # Replace 'custom-build' with the actual build script in your package.json
   displayName: 'npm install and build'
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathtoPublish: 'D:/NodeJs Microservice Boilerplate/src/server.ts'
+    pathtoPublish: 'D:/Release'
     artifactName: 'drop'
