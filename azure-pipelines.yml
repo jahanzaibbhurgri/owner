@@ -1,5 +1,5 @@
 trigger:
-- main  # or the name of your main branch
+- main
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -15,8 +15,8 @@ steps:
     npm run build
   displayName: 'npm install and build'
 
-- task: PublishBuildArtifacts@1
+- task: PublishPipelineArtifact@1
   inputs:
-    pathtoPublish: 'D:\NodeJS Microservice Boilerplate\src\server.ts'  # Specify the path to your TypeScript build output
-    artifactName: 'drop'
-
+    artifactName: e2e-server
+    publishLocation: 'pipeline'
+  displayName: 'Publish npm artifact'
