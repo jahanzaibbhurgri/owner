@@ -1,5 +1,5 @@
 trigger:
-- main
+- main  # or the name of your main branch
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -12,10 +12,11 @@ steps:
 
 - script: |
     npm install
-    npm run custom-build   # Replace 'custom-build' with the actual build script in your package.json
+    npm run build
   displayName: 'npm install and build'
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathtoPublish: 'D:/Release'
+    pathtoPublish: 'D:\NodeJS Microservice Boilerplate\src\server.ts'  # Specify the path to your TypeScript build output
     artifactName: 'drop'
+
