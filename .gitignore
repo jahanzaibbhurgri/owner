@@ -1,2 +1,3 @@
 node_modules
-./src/tests
+./src/tests/userController.test.ts
+./src/tests/userService.test.ts
