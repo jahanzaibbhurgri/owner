@@ -1,22 +1,14 @@
-
-
-
-
-import { createUser, getAllUsers, getUserById, updateUser,deleteUser} from '../controllers/userController';
 import { Router } from 'express';
-import {createUserValidationRules,validateUserId} from '../middleware/userValidation';
+import {createUserValidationRules,logInUserValidationRules} from '../middleware/userValidation';
+import { loginUser, registerUser } from '../controllers/userController';
 
 
 
 
-  const router = Router();
+const router = Router();
   
-router.get('/getallUsers', getAllUsers);
-router.post('/createUser',createUserValidationRules,createUser);
-router.get('/getUserById/:id',validateUserId ,getUserById);
-router.put('/updateUserById/:id',validateUserId,updateUser);
-router.delete('/deleteUserById/:id',validateUserId,deleteUser)
-
+router.post('/api/register/user',createUserValidationRules,registerUser);
+router.post('/api/login/user',logInUserValidationRules ,loginUser);
 
 
 export default router;

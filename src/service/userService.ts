@@ -1,51 +1,51 @@
+import { Login } from '@models/login.model';
+import { User} from '@models/user.model';
 import { PrismaClient } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken'
+
+
 
 const prisma = new PrismaClient();
 
 
-export const createUser = async (userData: { username: string; email: string }) => {
-  try 
-  {
-    // Create a new user
-    const newUser = await prisma.user.create({
-      data: {
-        username: userData.username,
-        email: userData.email,
-      },
+export const registerUser = async (userData: User) => {
+  const { name, email, password } = userData;
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await prisma.user.create({
+      data: { name, email, password: hashedPassword},
     });
 
-    return newUser; // You should include 'id' in the response
-    } 
-  catch (error) {
-    console.error(error);
-    throw error;
+    return user;
+  } catch (error) {
+    console.error('Error creating user:', error);
+    throw new Error('User registration failed');
   }
 };
 
-//get all users
-export const getAllUsers = async () => {
-  return prisma.user.findMany();
-};
 
-//get user by id//
-export const getUserById = async (userId: number) => {
-  return prisma.user.findUnique({
-    where: { id: userId },
+export const logIn = async (userData: Login) => {
+  const { email, password } = userData;
+
+  const user = await prisma.user.findUnique({
+    where: { email },
+    include: { roles: true },
   });
-};
 
-//update user by id//
-export const updateUser = async (userId: number, userData: { username: string, email: string }) => {
-  return prisma.user.update({
-    where: { id: userId },
-    data: userData,
+  if (!user || !(await bcrypt.compare(password, user.password))) {
+    throw new Error('Invalid credentials');
+  }
+
+  const token = jwt.sign({ userId: user.id, email: user.email }, 'your-secret-key', {
+    expiresIn: '1h',
   });
+
+  return "You are logged in "
 };
 
-//deleteuserById//
 
-export const deleteUser = async (userId: number) => {
-  return prisma.user.delete({
-    where: { id: userId },
-  });
-};
+
+
+

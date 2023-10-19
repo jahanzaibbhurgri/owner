@@ -2,16 +2,23 @@ import { body } from 'express-validator';
 import { Request, Response, NextFunction } from 'express';
 
 export const createUserValidationRules = (req: Request, res: Response, next: NextFunction) => {
-    const { username, email } = req.body;
+    const { name, email } = req.body;
   
-    if (!username || !email) {
+    if (!name || !email) {
       return res.status(400).json({ error: 'Please provide both username and email' });
     }  
-    // Proceed to the next middleware or the route handler
     next();
   };
+export const logInUserValidationRules = (req: Request,res:Response,next: NextFunction) => {
+  const {email,password}= req.body;
+  if(!email || !password)
+  {
+    return res.status(400).json({ error: 'Please provide both email and password' });
+  }
+  next();
 
-  export const validateUserId = (req: Request, res: Response, next: NextFunction) => {
+}
+export const validateUserId = (req: Request, res: Response, next: NextFunction) => {
     const userId = parseInt(req.params.id, 10);
   
     if (isNaN(userId) || userId <= 0) {
