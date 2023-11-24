@@ -7,8 +7,6 @@ WORKDIR /
 # Copy package.json and package-lock.json to the container
 COPY ./package*.json ./
 
-# Install application dependencies
-RUN npm install
 
 # Install TypeScript globally in the container
 RUN npm install -g typescript
