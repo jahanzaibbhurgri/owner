@@ -5,7 +5,7 @@
   "scripts": {
     "test": "jest",
     "build": "tsc",
-    "start":  " npm install && prisma generate && prisma migrate dev && ts-node src/server.ts --prod"
+    "start":  " npm install && prisma generate && prisma migrate deploy && ts-node src/server.ts --prod"
   },
   "keywords": [],
   "author": "",
