@@ -1,4 +1,4 @@
-import { body } from 'express-validator';
+
 import { Request, Response, NextFunction } from 'express';
 
 export const createUserValidationRules = (req: Request, res: Response, next: NextFunction) => {
