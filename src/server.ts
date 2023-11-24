@@ -10,7 +10,8 @@ import swaggerExport from "./config";
 
 // Create an instance of Express
  export const app: Express = express();
-const port: number = 3000;
+
+ const PORT=process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 
 app.use(bodyParser.json());
 app.use('/api-docs', swaggerExport.swaggerServe,swaggerExport.swaggerSetup);
@@ -19,6 +20,6 @@ app.use("/", router);
 
 
 // Start the Express server
-app.listen(port,"0.0.0.0",() => {
-  console.log(`Server is running on port ${port}`);
+app.listen(PORT,"0.0.0.0",() => {
+  console.log(`Server is running on port ${PORT}`);
 });
