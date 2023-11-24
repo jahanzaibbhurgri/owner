@@ -5,7 +5,7 @@
   "scripts": {
     "test": "jest",
     "build": "tsc",
-    "start": "prisma generate && ts-node src/server.ts"
+    "start":  " npm install && prisma generate && ts-node src/server.ts"
   },
   "keywords": [],
   "author": "",
