@@ -1,4 +1,7 @@
-node_modules/
-./src/tests/userController.test.ts
-./src/tests/userService.test
+# .gitignore
 
+# Ignore node_modules directory
+node_modules/
+
+# Ignore test files
+/src/tests/*.test.ts
