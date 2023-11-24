@@ -10,7 +10,7 @@ import swaggerExport from "./config";
 
 // Create an instance of Express
  export const app: Express = express();
-const port: number = 5432 ||3000;
+const port: number = 3000;
 
 app.use(bodyParser.json());
 app.use('/api-docs', swaggerExport.swaggerServe,swaggerExport.swaggerSetup);
