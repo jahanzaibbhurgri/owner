@@ -2,18 +2,18 @@
 import { Request, Response, NextFunction } from 'express';
 
 export const createUserValidationRules = (req: Request, res: Response, next: NextFunction) => {
-    const { name, email } = req.body;
+    const { username } = req.body;
   
-    if (!name || !email) {
-      return res.status(400).json({ error: 'Please provide both username and email' });
+    if (!username) {
+      return res.status(400).json({ error: 'Please provide the username'});
     }  
     next();
   };
 export const logInUserValidationRules = (req: Request,res:Response,next: NextFunction) => {
-  const {email,password}= req.body;
-  if(!email || !password)
+  const {username,password}= req.body;
+  if(!username || !password)
   {
-    return res.status(400).json({ error: 'Please provide both email and password' });
+    return res.status(400).json({ error: 'Please provide both username and password' });
   }
   next();
 

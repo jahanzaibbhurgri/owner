@@ -7,6 +7,7 @@ import * as userService from '../service/userService'
 export const registerUser = async (req: Request, res: Response) => {
   try {
     const registrationUser = await userService.registerUser(req.body);
+
     res.status(201).json(registrationUser);
   } catch (error) {
     console.error('Error registering user:', error);

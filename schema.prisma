@@ -1,26 +1,19 @@
 // schema.prisma
-
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
-
 // Use the DATABASE_URL environment variable directly
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  
 }
 model User {
   id       Int       @id @default(autoincrement())
-  name String    
-  email    String    @unique
+  username String    @unique 
   password String 
-  roles   Role[]  
 }
 
-model Role{
-  id Int @id @default(autoincrement())
-  username String @unique
-  users User[]
-}
 
 

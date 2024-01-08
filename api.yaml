@@ -6,7 +6,7 @@ info:
   
 
 servers:
-  - url: http://localhost:3000
+  - url: https://localhost:30005
 
 paths:
   /api/register/user:
@@ -22,18 +22,14 @@ paths:
             schema:
               type: object
               properties:
-                name:
+                username:
                   type: string
-                  description: The name of the user.
-                email:
-                  type: string
-                  description: The email of the user.
+                  description: The username of the user.
                 password:
                   type: string
                   description: The password of the user
               required:
-                - name
-                - email
+                - username
                 - password
       responses:
         201:
@@ -56,14 +52,14 @@ paths:
             schema:
               type: object
               properties:
-                email:
+                username:
                   type: string
-                  description: The email of the user.
+                  description: The username of the user.
                 password:
                   type: string
                   description: The password of the user
               required:
-                - email
+                - username
                 - password
       responses:
         201:
