@@ -1,0 +1,50 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+      - name: user-service
+        image: 308224898872.dkr.ecr.us-east-2.amazonaws.com/user-service:latest
+        ports:
+        - containerPort: 30004
+        env:
+        - name: DATABASE_URL
+          value: postgresql://authuser:authpassword@postgres-service:5432/user
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+            ephemeral-storage: "1Gi"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+            ephemeral-storage: "2Gi"
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: secret  # Replace 'secret' with the actual name of your image pull secret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+spec:
+  selector:
+    app: user-service
+  ports:
+    - protocol: TCP
+      port: 80        # Port exposed within the cluster
+      targetPort: 30004  # Port your application listens on inside the pod # Specify the desired NodePort
+  type: ClusterIP      # Expose the service externally
+
